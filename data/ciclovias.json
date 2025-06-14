@@ -1,0 +1,30 @@
+[
+  {
+    "nome": "Avenida Brasil",
+    "coords": [
+      -23.415,
+      -51.923
+    ]
+  },
+  {
+    "nome": "Pra\u00e7a da Catedral",
+    "coords": [
+      -23.42,
+      -51.931
+    ]
+  },
+  {
+    "nome": "Parque do Ing\u00e1",
+    "coords": [
+      -23.426,
+      -51.942
+    ]
+  },
+  {
+    "nome": "Av. Cerro Azul",
+    "coords": [
+      -23.43,
+      -51.925
+    ]
+  }
+]

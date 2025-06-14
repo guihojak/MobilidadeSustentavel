@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobilidade Sustentável</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Fonte moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <!-- Animações -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Seu CSS personalizado -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#"><i class="bi bi-bicycle"></i> Mobilidade Sustentável</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#introducao">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#beneficios">Benefícios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#dicas">Dicas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#mapa">Mapa</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pontos">Pontuação</a></li>
+        </ul>
+        <button id="toggleTema" class="btn btn-outline-light ms-3" title="Alternar tema">
+          <i class="bi bi-moon-stars-fill"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="container my-4">
+    <section id="introducao" class="mb-4">
+      <div class="p-4 bg-light rounded shadow-sm">
+        <h2>Bem-vindo ao Futuro da Mobilidade</h2>
+        <p class="lead">Aqui você encontra dicas, informações e um mapa interativo para estimular hábitos sustentáveis na sua cidade!</p>
+      </div>
+    </section>
+
+    <section id="beneficios" class="mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">Benefícios do Transporte Sustentável</h3>
+          <ul class="list-group list-group-flush mt-3">
+            <li class="list-group-item">Reduz a poluição e melhora o ar</li>
+            <li class="list-group-item">Evita congestionamentos</li>
+            <li class="list-group-item">Promove saúde e bem-estar</li>
+            <li class="list-group-item">Economiza dinheiro</li>
+            <li class="list-group-item">Contribui com o meio ambiente</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="dicas" class="mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">Dicas Sustentáveis</h3>
+          <p class="card-text">Clique no botão abaixo para visualizar dicas que ajudam você a contribuir com um futuro mais verde.</p>
+          <button class="btn btn-success" id="btnDicas"><i class="bi bi-lightbulb"></i> Mostrar Dicas</button>
+          <ul id="listaDicas" class="list-group mt-3"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapa" class="mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">Mapa de Ciclovias</h3>
+          <div id="mapaCiclovias" class="rounded mt-3" style="height: 400px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pontos" class="mb-4">
+      <div class="alert alert-success text-center shadow-sm">
+        <h4 class="alert-heading">Pontuação Sustentável</h4>
+        <p>Você já contribuiu com <strong><span id="pontuacao">0</span></strong> pontos 🌱</p>
+      </div>
+    </section>
+
+    <button class="btn btn-outline-success mt-3" data-bs-toggle="modal" data-bs-target="#curiosidadeModal">
+      Curiosidade Verde 🌿
+    </button>
+
+    <div class="modal fade" id="curiosidadeModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-success">
+          <div class="modal-header bg-success text-white">
+            <h5 class="modal-title">Você sabia?</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>A bicicleta é o meio de transporte mais eficiente já criado em termos de energia consumida por distância!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-success text-white text-center py-3">
+    <div class="container">
+      <small>&copy; 2025 Mobilidade Sustentável | Desenvolvido por estudantes da Unicesumar</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
