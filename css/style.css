@@ -1,37 +1,67 @@
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f2fdf6;
-  color: #333;
-  transition: background-color 0.3s, color 0.3s;
+/* Grid de fundo */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 3rem 3rem;
 }
 
-.navbar {
-  background-color: #2e7d32;
+/* Glow nos cards */
+.card-glow-container {
+  position: relative;
+  background-color: rgba(22,27,34,0.75);
+}
+.card-glow-container::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 200%; height: 100%;
+  background: linear-gradient(115deg, transparent 30%, #33FF99, #33AADD, transparent 70%);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+  opacity: 0.5;
+}
+.card-glow-container:hover::before {
+  transform: translateX(50%) skewX(-15deg);
 }
 
-.card {
-  border-radius: 16px;
+/* Animações */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
 }
 
-.list-group-item {
-  background: linear-gradient(to right, #e8f5e9, #c8e6c9);
-  border-left: 5px solid #66bb6a;
-  margin-bottom: 10px;
-  border-radius: 8px;
+/* Scroll reveal */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-footer {
-  background-color: #2e7d32;
-  color: white;
+/* Estilo customizado para os marcadores do mapa */
+.marker-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: #33AADD;
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -15px 0 0 -15px;
+  border: 2px solid #0D1117;
 }
-
-.tema-escuro {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-.tema-escuro .card,
-.tema-escuro .list-group-item {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
+.custom-div-icon i {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  color: #0D1117;
+  font-size: 16px;
+  transform: translateX(-50%);
 }

@@ -1,93 +1,117 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("btnDicas");
-  const lista = document.getElementById("listaDicas");
-  const pontos = document.getElementById("pontuacao");
-  const toggleBtn = document.getElementById("toggleTema");
-  const body = document.body;
+    // --- SELETORES DE ELEMENTOS ---
+    const elements = {
+        html: document.documentElement,
+        toggleTemaBtn: document.getElementById("toggleTema"),
+        pontuacaoEl: document.getElementById("pontuacao"),
+        formCalculadora: document.getElementById('formCalculadora'),
+        distanciaInput: document.getElementById('distanciaKm'),
+        resultadoCalculadoraEl: document.getElementById('resultadoCalculadora'),
+        mapaEl: document.getElementById('mapaCiclovias'),
+        scrollRevealElements: document.querySelectorAll('.scroll-reveal'),
+    };
 
-  // ======== Pontuação ========= //
-  let pontuacao = localStorage.getItem("pontos") ? parseInt(localStorage.getItem("pontos")) : 0;
-  pontos.textContent = pontuacao;
+    // --- ESTADO DA APLICAÇÃO ---
+    const state = {
+        pontuacao: 0,
+        mapa: null,
+        tileLayer: null, // <-- VAMOS GUARDAR A CAMADA DO MAPA AQUI
+    };
 
-  // ======== Tema Escuro/Claro ========= //
-  const temaSalvo = localStorage.getItem("tema");
-  if (temaSalvo === "escuro") {
-    body.classList.add("tema-escuro");
-    toggleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>';
-  }
+    // --- CONSTANTES ---
+    const CO2_POR_KM_CARRO = 0.120;
+    const TILE_URLS = {
+        dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        light: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    };
 
-  toggleBtn.addEventListener("click", () => {
-    body.classList.toggle("tema-escuro");
-    const temaAtual = body.classList.contains("tema-escuro") ? "escuro" : "claro";
-    localStorage.setItem("tema", temaAtual);
-    toggleBtn.innerHTML = temaAtual === "escuro"
-      ? '<i class="bi bi-sun-fill"></i>'
-      : '<i class="bi bi-moon-stars-fill"></i>';
-  });
+    // --- FUNÇÕES DE MANIPULAÇÃO DE TEMA ---
+    const updateThemeUI = (isDark) => {
+        elements.toggleTemaBtn.innerHTML = isDark
+            ? '<i class="bi bi-sun-fill text-lg text-yellow-400"></i>'
+            : '<i class="bi bi-moon-stars-fill text-lg text-indigo-400"></i>';
+    };
+    
+    // ATUALIZA O TEMA DO MAPA (FUNÇÃO NOVA E CRUCIAL)
+    const updateMapTheme = () => {
+        if (!state.mapa) return;
 
-  // ======== Última visita ========= //
-  const ultimaVisita = localStorage.getItem("ultimaVisita");
-  if (ultimaVisita) {
-    console.log(`Bem-vindo de volta! Sua última visita foi em: ${ultimaVisita}`);
-  }
-  localStorage.setItem("ultimaVisita", new Date().toLocaleString());
+        // Remove a camada de tiles antiga, se existir
+        if (state.tileLayer) {
+            state.mapa.removeLayer(state.tileLayer);
+        }
 
-  // ======== Dicas ========= //
-  let dicasCarregadas = false;
+        const isDark = elements.html.classList.contains('dark');
+        const newTileUrl = isDark ? TILE_URLS.dark : TILE_URLS.light;
 
-  btn.addEventListener("click", async () => {
-    if (dicasCarregadas) {
-      lista.innerHTML = "";
-      btn.textContent = "Mostrar Dicas";
-      dicasCarregadas = false;
-      return;
-    }
+        // Adiciona a nova camada e a guarda no estado
+        state.tileLayer = L.tileLayer(newTileUrl, {
+            attribution: '&copy; OpenStreetMap & CartoDB'
+        }).addTo(state.mapa);
+    };
 
-    try {
-      const res = await fetch("data/dicas.json");
-      if (!res.ok) throw new Error("Erro ao carregar dicas");
-      const dicas = await res.json();
+    const toggleTheme = () => {
+        const isDarkNow = elements.html.classList.toggle("dark");
+        localStorage.setItem("tema", isDarkNow ? "dark" : "light");
+        updateThemeUI(isDarkNow);
+        updateMapTheme(); // <-- CHAMA A ATUALIZAÇÃO DO MAPA
+    };
+    
+    const initTheme = () => {
+        const isDark = elements.html.classList.contains("dark");
+        updateThemeUI(isDark);
+    };
+    
+    // --- FUNÇÃO DE INICIALIZAÇÃO DO MAPA (ATUALIZADA) ---
+    const initMap = async () => {
+        if (!elements.mapaEl) return;
 
-      dicas.forEach(dica => {
-        const item = document.createElement("li");
-        item.className = "list-group-item";
-        item.innerHTML = `<strong>${dica.titulo}</strong><br>${dica.descricao}`;
-        lista.appendChild(item);
-      });
+        state.mapa = L.map(elements.mapaEl, {
+            zoomControl: false 
+        }).setView([-23.420999, -51.933056], 13); // Coordenadas de Paranavaí
+        
+        L.control.zoom({ position: 'bottomright' }).addTo(state.mapa);
+        
+        updateMapTheme(); // <-- USA A NOVA FUNÇÃO PARA CONFIGURAR O TEMA INICIAL
 
-      pontuacao += dicas.length * 5;
-      localStorage.setItem("pontos", pontuacao);
-      pontos.textContent = pontuacao;
+        try {
+            const response = await fetch("data/ciclovias.json");
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const ciclovias = await response.json();
+            
+            ciclovias.forEach(ponto => {
+                L.marker(ponto.coords, {
+                    icon: L.divIcon({
+                        className: 'custom-div-icon',
+                        html: `<div class="marker-pin"></div><i class="bi bi-bicycle"></i>`,
+                        iconSize: [30, 42],
+                        iconAnchor: [15, 42]
+                    })
+                }).addTo(state.mapa).bindPopup(`<strong>${ponto.nome}</strong>`);
+            });
+        } catch (error) {
+            console.error("Erro ao carregar ciclovias:", error);
+            elements.mapaEl.innerHTML = '<p class="p-4 text-center text-red-400">Não foi possível carregar os dados das ciclovias.</p>';
+        }
+    };
+    
+    // --- OUTRAS FUNÇÕES (sem alterações) ---
+    const initScore = () => { state.pontuacao = parseInt(localStorage.getItem("pontos")) || 0; renderScore(); };
+    const updateScore = (pontosGanhos) => { state.pontuacao += pontosGanhos; localStorage.setItem("pontos", state.pontuacao); renderScore(); };
+    const renderScore = () => { if (!elements.pontuacaoEl) return; elements.pontuacaoEl.textContent = state.pontuacao; elements.pontuacaoEl.classList.add('animate-pulse'); setTimeout(() => elements.pontuacaoEl.classList.remove('animate-pulse'), 800); };
+    const initScrollReveal = () => { if(!('IntersectionObserver' in window)) return; const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }); }, { threshold: 0.1 }); elements.scrollRevealElements.forEach(el => observer.observe(el)); };
+    const handleCalculadoraSubmit = (e) => { e.preventDefault(); const distancia = parseFloat(elements.distanciaInput.value); if (isNaN(distancia) || distancia <= 0) { elements.resultadoCalculadoraEl.innerHTML = `<p class="text-red-400">Por favor, insira um valor válido.</p>`; return; } const co2Economizado = (distancia * CO2_POR_KM_CARRO).toFixed(3); const pontosGanhos = Math.round(distancia * 10); elements.resultadoCalculadoraEl.innerHTML = `<p class="text-white">Você evitou a emissão de <strong class="bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-green to-brand-accent-blue">${co2Economizado} kg de CO₂!</strong></p><p class="text-sm text-brand-accent-green mt-1">+${pontosGanhos} pontos ganhos!</p>`; updateScore(pontosGanhos); elements.distanciaInput.value = ''; };
+    const initEventListeners = () => { if (elements.toggleTemaBtn) elements.toggleTemaBtn.addEventListener("click", toggleTheme); if (elements.formCalculadora) elements.formCalculadora.addEventListener("submit", handleCalculadoraSubmit); };
 
-      const feedback = document.createElement("div");
-      feedback.className = "text-success fw-bold mb-2 animate__animated animate__fadeInDown";
-      feedback.innerHTML = `+${dicas.length * 5} pontos ganhos! 🎉`;
-      lista.prepend(feedback);
-      setTimeout(() => feedback.remove(), 3000);
+    // --- FUNÇÃO DE INICIALIZAÇÃO PRINCIPAL ---
+    const init = () => {
+        initTheme();
+        initScore();
+        initMap();
+        initEventListeners();
+        initScrollReveal();
+    };
 
-      btn.textContent = "Ocultar Dicas";
-      dicasCarregadas = true;
-
-    } catch (error) {
-      lista.innerHTML = `<li class="list-group-item text-danger">Erro ao carregar dicas 😢</li>`;
-      console.error(error);
-    }
-  });
-
-  // ======== Mapa com Leaflet ========= //
-  const mapa = L.map('mapaCiclovias').setView([-23.420999, -51.933056], 13);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(mapa);
-
-  fetch("data/ciclovias.json")
-    .then(res => res.json())
-    .then(ciclovias => {
-      ciclovias.forEach(ponto => {
-        L.marker(ponto.coords)
-          .addTo(mapa)
-          .bindPopup(`<strong>${ponto.nome}</strong><br>Trecho cicloviário`);
-      });
-    });
+    // Inicia a aplicação
+    init();
 });
