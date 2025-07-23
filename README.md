@@ -18,9 +18,3 @@
 
 ### 💡 Objetivo
 Demonstrar que é possível criar aplicações funcionais, úteis e com impacto social utilizando apenas tecnologias fundamentais da web. O projeto serve como base para soluções voltadas a urbanismo, mobilidade ativa e sustentabilidade.
-
-### 📷 Demonstração
-[Inserir link do vídeo ou GIF do projeto em funcionamento aqui]
-
-### 📎 Acesse o projeto
-[🔗 Link para o deploy do projeto (se tiver hospedado)]
