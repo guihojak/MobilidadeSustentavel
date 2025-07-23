@@ -1,3 +1,26 @@
+/**********************************************
+* NOVAS REGRAS ADICIONADAS
+***********************************************/
+
+/* Habilita a rolagem suave para todo o site */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilo para o link de navegação ativo */
+.nav-link-active {
+  color: white; /* Garante que o texto fique branco */
+}
+/* Força a barra inferior a aparecer no link ativo */
+.nav-link-active::after {
+  width: 100%;
+}
+
+
+/**********************************************
+* CÓDIGO CSS ORIGINAL
+***********************************************/
+
 /* Grid de fundo */
 .bg-grid-pattern {
   background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),

@@ -45,34 +45,29 @@
 
 <body class="bg-brand-dark text-gray-300 font-sans">
   <nav class="bg-[rgba(22,27,34,0.5)] backdrop-blur-lg sticky top-0 z-50 border-b border-gray-800">
-  <div class="container mx-auto px-6 py-4 flex items-center">
-
-    <div>
-      <a href="#" class="flex items-center gap-2 text-xl font-bold text-white transition-opacity duration-300 hover:opacity-80">
-        <i class="bi bi-bicycle text-brand-accent-green"></i>
-        <span class="font-semibold">EcoRide</span>
-      </a>
+    <div class="container mx-auto px-6 py-4 flex items-center">
+      <div>
+        <a href="#" class="flex items-center gap-2 text-xl font-bold text-white transition-opacity duration-300 hover:opacity-80">
+          <i class="bi bi-bicycle text-brand-accent-green"></i>
+          <span class="font-semibold">EcoRide</span>
+        </a>
+      </div>
+      <div class="hidden md:flex flex-grow justify-center items-center space-x-12">
+        <a href="#beneficios" class="relative py-1 text-gray-300 hover:text-white after:absolute after:bottom-0 after:left-0 after:h-[0.125rem] after:w-0 after:bg-gradient-to-r after:from-brand-accent-green after:to-brand-accent-blue after:transition-all after:duration-300">
+          Benefícios
+        </a>
+        <a href="#calculadora" class="relative py-1 text-gray-300 hover:text-white after:absolute after:bottom-0 after:left-0 after:h-[0.125rem] after:w-0 after:bg-gradient-to-r after:from-brand-accent-green after:to-brand-accent-blue after:transition-all after:duration-300">
+          Calculadora
+        </a>
+        <a href="#mapa" class="relative py-1 text-gray-300 hover:text-white after:absolute after:bottom-0 after:left-0 after:h-[0.125rem] after:w-0 after:bg-gradient-to-r after:from-brand-accent-green after:to-brand-accent-blue after:transition-all after:duration-300">
+          Mapa
+        </a>
+      </div>
+      <div>
+        <button id="toggleTema" class="p-2 rounded-full hover:bg-brand-light focus:outline-none transition-colors" title="Alternar tema"></button>
+      </div>
     </div>
-
-    <div class="hidden md:flex flex-grow justify-center items-center space-x-12 -translate-x-10">
-      <a href="#beneficios" class="relative py-1 text-gray-300 hover:text-white after:absolute after:bottom-0 after:left-0 after:h-[0.125rem] after:w-0 after:bg-gradient-to-r after:from-brand-accent-green after:to-brand-accent-blue after:transition-all after:duration-300 hover:after:w-full">
-        Benefícios
-      </a>
-      <a href="#calculadora" class="relative py-1 text-gray-300 hover:text-white after:absolute after:bottom-0 after:left-0 after:h-[0.125rem] after:w-0 after:bg-gradient-to-r after:from-brand-accent-green after:to-brand-accent-blue after:transition-all after:duration-300 hover:after:w-full">
-        Calculadora
-      </a>
-      <a href="#mapa" class="relative py-1 text-gray-300 hover:text-white after:absolute after:bottom-0 after:left-0 after:h-[0.125rem] after:w-0 after:bg-gradient-to-r after:from-brand-accent-green after:to-brand-accent-blue after:transition-all after:duration-300 hover:after:w-full">
-        Mapa
-      </a>
-    </div>
-
-    <div>
-      <button id="toggleTema" class="p-2 rounded-full hover:bg-brand-light focus:outline-none transition-colors" title="Alternar tema">
-        </button>
-    </div>
-
-  </div>
-</nav>
+  </nav>
 
   <main>
     <section id="introducao" class="relative flex h-screen items-center justify-center overflow-hidden px-6 text-center -mt-20">
@@ -108,58 +103,39 @@
           Benefícios que <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-green to-brand-accent-blue">Inspiram</span>
         </h2>
         <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden">
-            <div class="relative z-10">
-              <i class="bi bi-heart-pulse-fill text-5xl text-brand-accent-green"></i>
-              <h3 class="mt-4 text-2xl font-bold text-white">Mais Saúde</h3>
-              <p class="mt-2 text-gray-400">Fortaleça seu corpo e mente com uma dose diária de exercício, reduzindo o estresse e melhorando seu bem-estar.</p>
-            </div>
-          </div>
-          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden">
-            <div class="relative z-10">
-              <i class="bi bi-globe-americas text-5xl text-brand-accent-blue"></i>
-              <h3 class="mt-4 text-2xl font-bold text-white">Menos Poluição</h3>
-              <p class="mt-2 text-gray-400">Cada pedalada é um respiro para o planeta, diminuindo a emissão de gases do efeito estufa e a poluição sonora.</p>
-            </div>
-          </div>
-          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden">
-            <div class="relative z-10">
-              <i class="bi bi-cash-coin text-5xl text-brand-accent-green"></i>
-              <h3 class="mt-4 text-2xl font-bold text-white">Economia no Bolso</h3>
-              <p class="mt-2 text-gray-400">Reduza drasticamente seus gastos com combustível, manutenção de veículos e transporte público.</p>
-            </div>
-          </div>
-          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden">
-            <div class="relative z-10">
-              <i class="bi bi-buildings-fill text-5xl text-brand-accent-blue"></i>
-              <h3 class="mt-4 text-2xl font-bold text-white">Cidade Inteligente</h3>
-              <p class="mt-2 text-gray-400">Contribua para um trânsito mais fluido, cidades menos congestionadas e mais espaços para as pessoas.</p>
-            </div>
-          </div>
+          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden"><div class="relative z-10"><i class="bi bi-heart-pulse-fill text-5xl text-brand-accent-green"></i><h3 class="mt-4 text-2xl font-bold text-white">Mais Saúde</h3><p class="mt-2 text-gray-400">Fortaleça seu corpo e mente com uma dose diária de exercício, reduzindo o estresse e melhorando seu bem-estar.</p></div></div>
+          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden"><div class="relative z-10"><i class="bi bi-globe-americas text-5xl text-brand-accent-blue"></i><h3 class="mt-4 text-2xl font-bold text-white">Menos Poluição</h3><p class="mt-2 text-gray-400">Cada pedalada é um respiro para o planeta, diminuindo a emissão de gases do efeito estufa e a poluição sonora.</p></div></div>
+          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden"><div class="relative z-10"><i class="bi bi-cash-coin text-5xl text-brand-accent-green"></i><h3 class="mt-4 text-2xl font-bold text-white">Economia no Bolso</h3><p class="mt-2 text-gray-400">Reduza drasticamente seus gastos com combustível, manutenção de veículos e transporte público.</p></div></div>
+          <div class="border border-gray-800 rounded-2xl p-8 text-center card-glow-container overflow-hidden"><div class="relative z-10"><i class="bi bi-buildings-fill text-5xl text-brand-accent-blue"></i><h3 class="mt-4 text-2xl font-bold text-white">Cidade Inteligente</h3><p class="mt-2 text-gray-400">Contribua para um trânsito mais fluido, cidades menos congestionadas e mais espaços para as pessoas.</p></div></div>
         </div>
       </section>
 
       <section id="calculadora" class="scroll-reveal">
         <div class="relative overflow-hidden rounded-2xl p-8 md:p-12 bg-[rgba(22,27,34,0.5)] card-glow-container border border-gray-800">
           <div class="text-center">
-            <h2 class="text-center text-4xl md:text-5xl font-bold text-white">
-              Calcule Seu <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-green to-brand-accent-blue">Impacto Positivo</span>
-            </h2>
+            <h2 class="text-center text-4xl md:text-5xl font-bold text-white">Calcule Seu <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-green to-brand-accent-blue">Impacto Positivo</span></h2>
             <p class="mt-2 text-gray-400">Veja a diferença que você faz ao deixar o carro na garagem.</p>
           </div>
           <form id="formCalculadora" class="mt-8 grid grid-cols-1 items-center gap-4 md:grid-cols-2 justify-center max-w-xl mx-auto">
             <input id="distanciaKm" type="number" placeholder="Distância (km)" required min="1" class="w-full px-3 py-3 text-white bg-brand-light border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgba(51,255,153,0.5)]">
-            <button type="submit" class="w-full bg-gradient-to-r from-brand-accent-green to-brand-accent-blue text-brand-dark font-bold py-3 px-8 rounded-full transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[rgba(51,255,153,0.2)]">
-              Calcular Emissão Evitada
-            </button>
+            <button type="submit" class="w-full bg-gradient-to-r from-brand-accent-green to-brand-accent-blue text-brand-dark font-bold py-3 px-8 rounded-full transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[rgba(51,255,153,0.2)]">Calcular Emissão Evitada</button>
           </form>
           <div id="resultadoCalculadora" class="mt-6 text-center text-lg font-semibold h-16"></div>
+          
+          <div id="historicoCorridas" class="mt-4 max-w-md mx-auto"></div>
         </div>
       </section>
 
       <section id="mapa" class="scroll-reveal">
         <h2 class="text-4xl md:text-5xl font-bold text-white text-center">Explore as <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-green to-brand-accent-blue">Ciclovias</span></h2>
         <p class="mt-2 text-gray-400 text-center">Encontre rotas seguras e planejadas perto de você.</p>
+        
+        <div class="text-center mt-4">
+            <button id="acharPerto" class="bg-brand-accent-blue text-white font-bold py-2 px-5 rounded-full transition-transform duration-300 hover:scale-105">
+                <i class="bi bi-geo-alt-fill mr-2"></i>Achar perto de mim
+            </button>
+        </div>
+
         <div class="mt-8 border border-gray-800 overflow-hidden rounded-2xl shadow-2xl">
           <div id="mapaCiclovias" class="bg-brand-light" style="height: 450px;"></div>
         </div>
